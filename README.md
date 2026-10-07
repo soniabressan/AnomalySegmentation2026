@@ -1,14 +1,17 @@
-# Mask Architecture for Road Scenes
-This is the starting repository for two projects:
-- Mask Architecture Anomaly Segmentation for Road Scenes  [[Project Description](https://drive.google.com/file/d/1Vz08DHsP_mojpCTAQTR6NHVq-2rEqAZM/view?usp=sharing)]
-- Comprehensive Road Scene Understanding for Autonomous Driving  [[Project Description](https://drive.google.com/file/d/1tq5F_j_8O2vlGWbkU1ayPjYvCml1VEwr/view?usp=sharing)]
+# Mask Architecture Anomaly Segmentation for Road Scenes
 
-This repository consists of the code base for training/testing ERFNet on the Cityscapes dataset and perform anomaly segmentation. It also contains some code referring to EoMT. Some of this code may be unnecessary for your project.
+Course project for *Machine Learning for Mathematical Engineering* (MSc Mathematical Engineering, Politecnico di Torino, 2026).
+Team: Sonia Bressan, Arianna Brocco, Alessia Gambuzza, Maria Verdari. Original repository: [MariaVerdari/AnomalySegmentation2026](https://github.com/MariaVerdari/AnomalySegmentation2026).
 
-## Folders
-For instructions, please refer to the README in each folder:
+**Goal.** Segmentation models for autonomous driving are over-confident on objects they have never seen. We detect these out-of-distribution (OoD) obstacles pixel by pixel.
 
-* [eval](eval) contains tools for evaluating/visualizing an ERFNet model's output and performing anomaly segmentation.
-* [trained_models](trained_models) Contains the ERFNet trained models for the baseline eval. 
-* [eomt](eomt) It is almost the original folder of the EoMT project. Inside it you will find code to train and pretrained checkpoints for EoMT.
+**What we did**
+- Compared post-hoc anomaly scores (MSP, MaxLogit, entropy, temperature scaling, RbA) on a pixel-based model (ERFNet) and a mask-based model (EoMT), on five benchmarks: RoadAnomaly21, RoadObstacle21, RoadAnomaly, Fishyscapes Static, Lost&Found.
+- Proposed a prototype-based extension of EoMT: class prototypes are computed from the object queries, and anomaly scores come from cosine and Mahalanobis distances (shared or per-class covariance), with fine-tuning of a cosine classifier.
+- Metrics: AuPRC and FPR95.
 
+**Result.** EoMT outperforms ERFNet on all five datasets; among the prototype-based variants, the second fine-tuning gives the best AuPRC on RoadObstacle21 (86.0) and RoadAnomaly (32.8).
+
+**Report:** [report.pdf](report.pdf)
+
+The code is based on the ERFNet and EoMT code bases provided for the course; see the folders `eval/` and `eomt/`.
